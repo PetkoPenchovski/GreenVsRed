@@ -8,17 +8,30 @@ public class Grid {
 
     private int[][] currentGrid;
 
-    public Grid (int width, int height, int[][] initialGrid) {
+    public Grid(int width, int height, int[][] initialGrid) {
         this.width = width;
         this.height = height;
         this.currentGrid = initialGrid;
     }
 
-    private int getColor (int x, int y){
+    private int getColor(int x, int y) {
         return currentGrid[x][y];
     }
 
-    private void generateNewGeneration () {
+    public int play(int x1, int y1, int N) {
+        printBoard();
+
+        int result = 0;
+        for (int numberOfGeneration = 0; numberOfGeneration < N; numberOfGeneration++) {
+            if (getColor(y1, x1) == GREEN) {
+                result++;
+            }
+            generateNewGeneration();
+        }
+        return result;
+    }
+
+    private void generateNewGeneration() {
         int[][] newGeneration = new int[height][width];
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
@@ -37,7 +50,7 @@ public class Grid {
             for (int j = -1; j < 2; j++) {
                 // the condition (i != 0 || j != 0) is making sure that we are not counting the current cell as its neighbour
                 if ((i != 0 || j != 0) && isValidCell(x + i, y + j)) {
-                    if (currentGrid[x+i][y+j] == GREEN) {
+                    if (currentGrid[x + i][y + j] == GREEN) {
                         greenNeighbour++;
                     }
                 }
@@ -46,7 +59,7 @@ public class Grid {
         return greenNeighbour;
     }
 
-    private int getNewColor (int currentColor, int greenNeighbours) {
+    private int getNewColor(int currentColor, int greenNeighbours) {
         if (currentColor == RED) {
             if (greenNeighbours == 3 || greenNeighbours == 6) {
                 return GREEN;
@@ -60,7 +73,7 @@ public class Grid {
         return RED;
     }
 
-    private boolean isValidCell (int x, int y) {
+    private boolean isValidCell(int x, int y) {
         return x >= 0 && x < width && y >= 0 && y < height;
     }
 
