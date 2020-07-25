@@ -29,7 +29,7 @@ public class Game {
         x1 = Integer.parseInt(line.split(",")[0].trim());
         y1 = Integer.parseInt(line.split(",")[1].trim());
         N = Integer.parseInt(line.split(",")[2].trim());
-        
+
         System.out.println(String.format("Width: %d, height: %d, x1: %d, y1: %d, Generation: %d", width, height, x1, y1, N));
 
         Grid grid = new Grid(width, height, initialBoard);
